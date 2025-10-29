@@ -3,6 +3,6 @@
 
 int main(){
     std::cout << "hello, zhiz!" << std::endl;
-    std::cout << "PI = " << PI <<std::endl;
+    std::cout << "PI = " << PI << std::endl;
     return 0;
 }
