@@ -15,3 +15,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 #add executable
 add_executable(assert_test "DB vs RL/assert-review.cpp")
+add_executable(hello_world "hello.cpp")
+add_executable(test "test_c++_standard.cpp")
+
+
+
