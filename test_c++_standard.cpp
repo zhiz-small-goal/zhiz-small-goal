@@ -1,34 +1,32 @@
-#pragma runtime_checks("", off)  // 关闭运行时检查
-#pragma warning(disable: 4700)   // 禁用未初始化警告
 #include <iostream>
+#include <typeinfo>
 
 int main() {
-    std::cout << "=== 测试未初始化变量 ===\n\n";
+    auto g = 'H';
 
-    // 测试 1：未初始化的 int
-    int uninit_int;
-    std::cout << "未初始化的 int: " << uninit_int << "\n";
+    std::cout << "=== 字符字面值类型测试 ===\n";
+    std::cout << "auto g = 'H':\n";
+    std::cout << "  g 的类型: " << typeid(g).name() << "\n";
+    std::cout << "  sizeof(g): " << sizeof(g) << " 字节\n";
+    std::cout << "  sizeof('H'): " << sizeof('H') << " 字节\n\n";
 
-    // 测试 2：多次定义未初始化的变量
-    int a;
-    int b;
-    int c;
-    std::cout << "a = " << a << "\n";
-    std::cout << "b = " << b << "\n";
-    std::cout << "c = " << c << "\n\n";
+    // 直接测试字面值
+    std::cout << "'H' 字面值:\n";
+    std::cout << "  类型: " << typeid('H').name() << "\n";
+    std::cout << "  大小: " << sizeof('H') << " 字节\n\n";
 
-    // 测试 3：对比初始化的变量
-    int init_int = 0;
-    std::cout << "初始化的 int: " << init_int << "\n\n";
+    // 对比不同类型
+    std::cout << "=== 对比 ===\n";
+    std::cout << "sizeof(char): " << sizeof(char) << " 字节\n";
+    std::cout << "sizeof(int): " << sizeof(int) << " 字节\n";
 
-    // 测试 4：未初始化的其他类型
-    double uninit_double;
-    bool uninit_bool;
-    char uninit_char;
-
-    std::cout << "未初始化的 double: " << uninit_double << "\n";
-    std::cout << "未初始化的 bool: " << uninit_bool << "\n";
-    std::cout << "未初始化的 char (as int): " << (int)uninit_char << "\n";
+    // 测试是否匹配
+    if (sizeof('H') == sizeof(char)) {
+        std::cout << "\n结论: 'H' 的大小等于 char (MSVC 行为)\n";
+    }
+    else if (sizeof('H') == sizeof(int)) {
+        std::cout << "\n结论: 'H' 的大小等于 int (GCC/Clang 行为)\n";
+    }
 
     return 0;
 }
