@@ -16,9 +16,15 @@ public:
 	}
 };
 
+std::string userInput(const std::string& prompt) {
+	//prompt = "hello" //error
+	std::cout << "userInput: " << prompt << std::endl;
+	return prompt;
+}
+
 
 int main() {
-	/* ÕâÀïÊÇµ¥ÒýºÅË«ÒýºÅÁ·Ï°*/
+	/* ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½Ë«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°*/
 	const int y = 20;
 	std::cout << "x = " << x << "\n";
 
@@ -41,30 +47,30 @@ int main() {
 	std::cout << "g type:" << typeid(g).name() << std::endl;
 	//std::cout << "ptr2 type:" << typeid(ptr2).name() << std::endl;
 
-	//ÕâÀïÊÇconstÁ·Ï°
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½constï¿½ï¿½Ï°
 
-	//1£¬±äÁ¿³£Á¿
+	//1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	const int a = 10;
 	//a = 20 //error
 
-	//2,Ö¸Õë³£Á¿
+	//2,Ö¸ï¿½ë³£ï¿½ï¿½
 	int b = 20;
 	const int* ptr1 = &b;
 	//*ptr1 = 30; //error
 
 	int* const ptr2 = &b;
 	*ptr2 = 30;
-	std::cout << "ptr2¿ÉÒÔ´Ó20¸Ä³É30" << *ptr2 << std::endl;
+	std::cout << "ptr2ï¿½ï¿½ï¿½Ô´ï¿½20ï¿½Ä³ï¿½30" << *ptr2 << std::endl;
 
 	const int* const ptr3 = &b;
 	//*ptr2 = 30; //error
 	//ptr2 = &a; //error
 	
-	//3,ÒýÓÃ³£Á¿
+	//3,ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½
 	const int& ref = b;
 	//ref = 20; //error
 
-	//4,³ÉÔ±º¯Êý
+	//4,ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
 	const Myclass obj;
 	obj.getValue();
 	std::cout << "obj.getValue() = " << obj.getValue() << std::endl;
@@ -74,7 +80,7 @@ int main() {
     obj2.setValue(40);
     std::cout << "obj2.getValue() = " << obj2.getValue() << std::endl;
 
-		
+	
 	
 	return 0;
 }
