@@ -1,87 +1,168 @@
 #include <iostream>
+#include <string>
 
-int x = 10;
-char n = 'a';
 
-class Myclass {
-	int c = 30;
+
+class Person {
+private:
+	std::string name;
+	int age;
 
 public:
-	int getValue() const {
-		return c;
+	Person(std::string n, int a) : name(n), age(a) {}
+
+	std::string zhiz = "zhiz";
+	const std::string const_zhiz = "const_zhiz";
+
+	std::string getName() const {
+		return name;
 	}
 
-	void setValue(int value) {
-		c = value;
+	const int& getAge() const {
+		return age;
+	}
+
+	void setName(const std::string& n) {
+		name = n;
+	}
+
+	void setAge(const int& a) {
+		age = a;
+	}
+
+	int& getAge() {
+		return age;
 	}
 };
 
-std::string userInput(const std::string& prompt) {
-	//prompt = "hello" //error
-	std::cout << "userInput: " << prompt << std::endl;
-	return prompt;
+constexpr int getValue() {
+	return 10 + 20;
 }
+
+constexpr int square(int a) {
+	return a * a;
+}
+
+//constÃ»ÒâÒå
+const int setValue2(int a, int b) {
+    	return (a > b) ? a : b;
+}
+
+//const ÓÐÒâÒå
+int aa = 10;
+const int& getValue3() {
+	return aa;
+}
+const int* getValue4() {
+	return &aa;
+}
+
+constexpr int getValue2(int a, int b) {
+	return (a > b) ? a : b;
+}
+
+class Counts {
+private:
+	mutable int counts;
+	std::string s;
+
+public:
+	Counts(const std::string& str): counts(0), s(str) {}
+	void printstr() const {
+		std::cout << s << std::endl;
+		counts++;
+		int x = 10;
+		x = 100;
+	}
+
+	int getCounts() const {
+		return counts;
+	}
+};
 
 
 int main() {
-	/* ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½Ë«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°*/
-	const int y = 20;
-	std::cout << "x = " << x << "\n";
+	Person z("zhiz", 25);
+	std::cout << "Name= " << z.getName() << std::endl;
+	std::cout << "age=" << z.getAge() << std::endl;
 
-	char* p = &n;
-	std::cout << "p = " << *p << std::endl;
-	std::cout << "type:" << typeid(*p).name() << std::endl;
-	std::cout << "size" << sizeof(*p) << "zijie" << std::endl;
-	std::cout << "sizelf(char):" << sizeof(char) << std::endl;
-	std::cout << "sizeof(int):" << sizeof(int) << "zijie\n";
-	*p = 'b';
-	std::cout << "p=" << *p << std::endl;
+	int& age1 = z.getAge();
+	age1 = 34;
+	std::cout << "new age = " << z.getAge() << std::endl;
 
-	int* ptr = &x;
-	std::cout << "ptr= " << *ptr << std::endl;
-
-	*ptr = 30;
-	std::cout << "x= " << x << std::endl;
-
-	auto g = 'H';
-	std::cout << "g type:" << typeid(g).name() << std::endl;
-	//std::cout << "ptr2 type:" << typeid(ptr2).name() << std::endl;
-
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½constï¿½ï¿½Ï°
-
-	//1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	const int a = 10;
-	//a = 20 //error
-
-	//2,Ö¸ï¿½ë³£ï¿½ï¿½
-	int b = 20;
-	const int* ptr1 = &b;
-	//*ptr1 = 30; //error
-
-	int* const ptr2 = &b;
-	*ptr2 = 30;
-	std::cout << "ptr2ï¿½ï¿½ï¿½Ô´ï¿½20ï¿½Ä³ï¿½30" << *ptr2 << std::endl;
-
-	const int* const ptr3 = &b;
-	//*ptr2 = 30; //error
-	//ptr2 = &a; //error
+	std::cout << " Ö¦Ö¦£º" << z.zhiz << std::endl;
+	std::cout << "const_zhiz===" << z.const_zhiz << std::endl;
 	
-	//3,ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½
-	const int& ref = b;
-	//ref = 20; //error
+	const Person zz("zhiz", 20);
+	zz.zhiz;
+	std::cout << " Ö¦Ö¦£º" << zz.zhiz << std::endl;
 
-	//4,ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
-	const Myclass obj;
-	obj.getValue();
-	std::cout << "obj.getValue() = " << obj.getValue() << std::endl;
-    //obj.setValue(30); //error
+	const int MAX = 100;
+	const int MIN = 20;
+	const int* ptr2 = &MIN;
+	const int min = 11;
+    const int* ptr = &MAX;
+	const int* const ptr3 = &MAX;
+	int e = 200;
 
-	Myclass obj2;
-    obj2.setValue(40);
-    std::cout << "obj2.getValue() = " << obj2.getValue() << std::endl;
+	std::cout << "µÚÈý¸öÖ¸ÕëÖµ" << *ptr3 << std::endl;
+	std::cout << "ptr3µÄµØÖ·" << ptr << std::endl;
+	//ptr3 = &MIN; //error
+	//*ptr3 = 200; //error
+	std::cout << "MAX=" << MAX << std::endl;
+	std::cout << "Ö¸ÕëÖ¸ÏòµÄÖµ" << *ptr << std::endl;
+	//MAX = 200; //error
+	//*ptr = 200; //error
+	//ptr = &MIN; //error
+	ptr = &min;
+	std::cout << "Ö¸ÕëÖ¸ÏòµÄÖµ" << *ptr << std::endl;
+	ptr = ptr2;
+	std::cout << "Ö¸ÕëÖ¸ÏòµÄÖµ" << *ptr << std::endl;
 
-	
+
+	constexpr int a = 20;
+	//a = 30; //error
+
+	constexpr int b = getValue();
+	std::cout << "Êä³öµÄb = " << b << std::endl;
+
+	constexpr int c = getValue2(20, 40);
+	std::cout << "Êä³öµÄc = " << c << std::endl;
+
+	constexpr int ss = square(4);
+	std::cout << "ss = " << ss << std::endl;
+
+	Counts c1("hello");
+	c1.printstr();
+	c1.printstr();
+	c1.printstr();
+	std::cout << "counts: " << c1.getCounts() << std::endl;
+
+
+	int* py = const_cast<int*>(ptr);
+	std::cout << "pyÖ¸ÏòµÄÖµ" << *py << std::endl;
+	//py = 30; //error
+
+	const int* ptr4 = &e;
+	std::cout << "ptr4Ö¸ÏòµÄÖµ" << *ptr4 << std::endl;
+	//ptr4 = 30; //error
+	int* py2 = const_cast<int*>(ptr4);
+	*py2 = 300;
+	std::cout << "ptr4 ×îºóÖ¸ÏòµÄÖµ" << *ptr4 << std::endl;
+
+	const int& py3 = e;
+	//py3 = 30000;//error
+	std::cout << "py3 reference value" << py3 << std::endl;
+	int py4 = const_cast<int&>(py3);
+	std::cout << "py4 = " << py4 << std::endl;
+	py4 = 30000;
+	std::cout << "py4 = " << py4 << std::endl;
+	std::cout << "py3×îºóµÄÖµ" << py3 <<std::endl;
+
+	int& py5 = const_cast<int&>(py3);
+	std::cout << "py5=" << py5 << std::endl;
+	py5 = 5000;
+	std::cout << "py3 last value" << py3 << std::endl;
 	
 	return 0;
 }
-

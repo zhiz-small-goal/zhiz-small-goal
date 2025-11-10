@@ -28,5 +28,8 @@ int main() {
         std::cout << "\n结论: 'H' 的大小等于 int (GCC/Clang 行为)\n";
     }
 
+    int a = 20;
+    std::cout << &a << std::endl;    
+
     return 0;
 }
