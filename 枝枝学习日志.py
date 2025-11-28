@@ -73,11 +73,11 @@ date: {today}
 # {safe_name}.cpp 练习记录
 
 ## 代码说明
-// 这里放你的cpp代码摘要或关键点
+// 这里放cpp代码摘要或关键点
 
 ## 学习笔记 / 总结 / bug调试
 - 创建于 {now}
-（在这里写你的想法～）
+
 """
             with open(md_path, "w", encoding="utf-8") as f:
                 f.write(content)
