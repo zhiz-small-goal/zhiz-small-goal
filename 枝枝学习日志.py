@@ -138,8 +138,8 @@ date: {today}
     popup.title("")
     popup.geometry("360x140")
     popup.resizable(False, False)
-    popup.configure(bg="#27ae60")
-    tk.Label(popup, text=success_msg, bg="#27ae60", fg="white",
+    popup.configure(bg="#94D1EC")
+    tk.Label(popup, text=success_msg, bg="#96D4DF", fg="white",
              font=("微软雅黑", 12, "bold"), justify="center").pack(expand=True)
     popup.update_idletasks()
     x = (popup.winfo_screenwidth() // 2) - (popup.winfo_width() // 2)
