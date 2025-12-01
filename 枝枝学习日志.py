@@ -45,11 +45,16 @@ def create_cpp_log():
             cpp_files.append(clean)
 
     actual_files = []
+    duplicates = []
 
     # 为每个 cpp 文件生成文件和 md 笔记
     for name in cpp_files:
         cpp_path = os.path.join(folder_path, f"{name}.cpp")
         md_path = os.path.join(folder_path, f"{name}.md")
+
+        if os.path.exists(cpp_path) and os.path.exists(md_path):
+            duplicates.append(name)
+            continue
 
         if not os.path.exists(cpp_path):
             try:
@@ -92,6 +97,11 @@ def create_cpp_log():
                 return
 
         actual_files.append(name)
+
+    if duplicates:
+        messagebox.showinfo("提示", "以下文件已存在对应的 cpp 和 md，未作修改：\n" + "\n".join(duplicates))
+        if not actual_files:
+            return
 
     # 生成 / 更新 index.md
     index_file = os.path.join(os.getcwd(), "index.md")
@@ -174,6 +184,7 @@ def create_cpp_log():
     popup.geometry(f"+{x}+{y}")
 
     popup.after(1500, popup.destroy)
+    entry_files.delete("1.0", tk.END)
 
 # GUI
 root = tk.Tk()
