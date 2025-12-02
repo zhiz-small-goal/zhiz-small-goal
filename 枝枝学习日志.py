@@ -144,12 +144,19 @@ def create_cpp_log():
             if lines[i].startswith("## ") and i != date_line_index:
                 end_index = i
                 break
+
+        # ??????????????????
+        current_day_lines = lines[start_index + 1:end_index]
         updated_lines = lines[:start_index + 1]
-        updated_lines.extend(new_list_lines)
+        updated_lines.extend(current_day_lines)
+        if new_list_lines:
+            updated_lines.extend(new_list_lines)
+
         if end_index < len(lines):
             if updated_lines and updated_lines[-1].strip() != "":
                 updated_lines.append("")
             updated_lines.extend(lines[end_index:])
+
         existing_content = "\n".join(updated_lines)
 
     try:
