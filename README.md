@@ -1,16 +1,66 @@
-## Hi there 👋
+# 项目简介
 
-<!--
-**zhiz-small-goal/zhiz-small-goal** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+- 这是我的个人学习仓库，用来整理 C++知识的练习代码与笔记。
+- 每天的学习内容按日期归档，便于回溯和复盘。
 
-Here are some ideas to get you started:
+# 仓库结构
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+- `index.md`：总目录，按日期列出当天新增的条目。
+- `cards/`：概念卡片，一张卡片配一份 `*.cpp` 示例和对应的 `*.md` 说明。
+- `reviews/`：复盘记录，按日期前缀命名。
+- `script/枝枝学习日志-v1.0.py`：小工具，生成卡片/复盘文件并自动更新 `index.md`。
+- 其他根目录文件为简单示例或编译配置，可按需参考。
+
+# Git 提交信息规范（Conventional Commits）
+
+采用格式：`<type>(<scope>): <subject>`
+
+- 常用 type：
+  - `feat`   新增功能或重要内容
+  - `fix`    修复错误（包括文档、示例中的错误）
+  - `docs`   仅修改文档（Markdown、注释）
+  - `refactor` 重构示例代码，不改变行为
+  - `chore`  其他与学习内容无关的杂项
+
+- scope 示例：
+  - `heap`           堆、存储期相关内容
+  - `pointer`        指针与智能指针
+  - `build`          构建相关
+
+- 示例：
+  - `docs(heap): 修正存储期的定义，贴近标准术语`
+  - `fix(example): 修复 double delete 示例中的错误`
+  - `feat(pointer): 增加 shared_ptr/unique_ptr 对比示例`
+
+# 使用方法
+
+- 运行 `python script/枝枝学习日志-v1.0.py` 打开 GUI，输入要创建的条目名称：
+  - 选择“概念卡”：在 `cards/` 下生成 `*.cpp` + `*.md`，并写入 `index.md`。
+  - 选择“学习复盘”：在 `reviews/` 下按日期创建 `*.md`，并写入 `index.md`。
+- 已存在的文件不会被覆盖，复盘/卡片会追加“更新时间”和“更新追踪”。
+
+# 适合谁
+
+- 正在进阶 C++17的自学者，习惯用 VS Code、CMake 或 Qt Creator 记录和跑示例。
+
+# 进阶提示
+
+- 建议在新增条目前先拉取最新仓库，保证 `index.md` 合并无冲突。
+- 如需调整模板或默认输出路径，可直接修改 `script/枝枝学习日志-v1.0.py` 中的常量。
+
+# 贡献流程
+
+1. 发现问题或想补充内容
+   - 优先检查 notes/ 中是否已有相关小节，避免重复。
+   - 如是修正定义，优先修改“权威定义”所在位置。
+
+2. 修改与自测
+   - 对文档：检查术语一致性、链接是否正确。
+   - 对代码：确保示例可以在 README 指定环境中编译运行。
+
+3. 提交
+   - 使用约定的 commit 信息格式（见上文）。
+   - 每个 commit 尽量聚焦一个主题（例如“修正文档定义”“补充示例”分成两个提交）。
+
+4. （可选）Pull Request
+   - 若未来对外开放贡献：在此说明 PR 模板、评审预期等。
