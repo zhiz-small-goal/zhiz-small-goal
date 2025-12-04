@@ -1,23 +1,31 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "Build",
-            "type": "shell",
-            "command": "g++",
-            "args": [
-                "-std=c++17",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}.exe"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": ["$gcc"],
-            "detail": "Compiling ${file}"
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "compile current C++ file",   // 顺手把拼写修了，下面 launch 也要改成这个
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "-std=c++17",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "${file}",
+        "-o",
+        "${fileDirname}/test.exe"              // 关键：输出统一为 a.exe，避免中文名
+      ],
+      "options": {
+        "env": {
+          "TEMP": "C:\\Windows\\Temp",
+          "TMP": "C:\\Windows\\Temp"
         }
-    ]
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"],
+      "detail": "Compile current C++ file"
+    }
+  ]
 }
