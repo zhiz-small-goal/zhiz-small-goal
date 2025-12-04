@@ -53,10 +53,13 @@ def open_with_default_app(path: str):
 # 模板渲染
 # ======================
 
-def render_cpp_template(name: str) -> str:
+def render_cpp_template(name: str, md_rel_path: str | None = None) -> str:
     """生成默认的 cpp 模板内容"""
+    doc_comment = f"// docs: ./{md_rel_path}" if md_rel_path else ""
+    comment_block = doc_comment + ("\n\n" if doc_comment else "")
     return (
-        '#include <iostream>\n\n'
+        comment_block
+        + '#include <iostream>\n\n'
         "int main() {\n"
         f'    std::cout << "Hello from {name} ({today})" << std::endl;\n'
         "    return 0;\n"
@@ -90,23 +93,26 @@ def render_md_content(name: str, note_type: str, cpp_rel_path: str | None) -> st
 
         # 创建卡片时的时间戳（精确到秒）
         now_ts = datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S")
+        cpp_link_text = os.path.basename(cpp_rel_path) if cpp_rel_path else None
+        cpp_link_line = f"*关联代码*: [{cpp_link_text}]({cpp_link_text})" if cpp_link_text else ""
+        title_block = f"# {name}\n\n" + (f"{cpp_link_line}\n\n" if cpp_link_line else "")
 
         body = (
-            f"# {name}\n\n"
-            "### 当前工作定义（v1）\n\n"
-            "（在当前理解下，给出清晰、准确、必要的定义）\n\n"
-            "### 关键属性\n\n"
-            "- （列出该概念必备的 3〜5 条属性）\n\n"
-            "### 典型正例（含代码）\n\n"
-            f"- （关联代码示例：`{cpp_rel_path or 'TODO_填入代码路径'}` 等，写明为什么是正例）\n\n"
-            "### 反例 / 易混概念\n\n"
-            "- （列出容易混淆的写法或“不属于该概念”的例子，并说明原因）\n\n"
-            "### 版本记录\n\n"
-            f"- v1（{today}）：第一次整理该概念/主题的定义与属性。\n\n"
-            "### 未解决问题 / 待验证\n\n"
-            "- （写下你还不确定、要在实践中验证的点）\n\n"
-            "### 更新追踪\n\n"
-            f"- {now_ts}：创建卡片。\n"
+            title_block
+            + "### 当前工作定义(v1)\n\n"
+            + "（在当前理解下，给出清晰、准确、必要的定义）\n\n"
+            + "### 关键属性\n\n"
+            + "- （列出该概念必备的 3〜5 条属性）\n\n"
+            + "### 典型正例（含代码）\n\n"
+            + f"- （关联代码示例：`{cpp_link_text or 'TODO_填入代码路径'}` 等，写明为什么是正例）\n\n"
+            + "### 反例 / 易混概念\n\n"
+            + "- （列出容易混淆的写法或“不属于该概念”的例子，并说明原因）\n\n"
+            + "### 版本记录\n\n"
+            + f"- v1（{today}）：第一次整理该概念/主题的定义与属性。\n\n"
+            + "### 未解决问题 / 待验证\n\n"
+            + "- （写下你还不确定、要在实践中验证的点）\n\n"
+            + "### 更新追踪\n\n"
+            + f"- {now_ts}：创建卡片。\n"
         )
         return "\n".join(header_lines) + "\n\n" + body
 
@@ -255,6 +261,83 @@ def append_update_tracking(md_path: str, when: str, action: str) -> bool:
     return True
 
 
+def ensure_md_cpp_link(md_path: str, cpp_filename: str) -> bool:
+    """在 md 标题后补充指向同名 cpp 的跳转"""
+    link_line = f"*关联代码*: [{cpp_filename}]({cpp_filename})"
+    try:
+        with open(md_path, "r", encoding="utf-8") as f:
+            lines = f.read().splitlines()
+    except Exception as e:
+        messagebox.showerror("错误", f"读取 {md_path} 失败：{e}")
+        return False
+
+    joined = "\n".join(lines)
+    if link_line in joined:
+        return True
+
+    # 跳过 YAML 头，寻找第一个标题行
+    idx = 0
+    yaml_delims = 0
+    while idx < len(lines) and yaml_delims < 2:
+        if lines[idx].strip() == "---":
+            yaml_delims += 1
+        idx += 1
+
+    insert_pos = idx
+    for i in range(idx, len(lines)):
+        if lines[i].startswith("# "):
+            insert_pos = i + 1
+            break
+
+    if insert_pos < len(lines) and lines[insert_pos].strip():
+        lines.insert(insert_pos, "")
+        insert_pos += 1
+
+    lines.insert(insert_pos, link_line)
+    lines.insert(insert_pos + 1, "")
+
+    try:
+        with open(md_path, "w", encoding="utf-8") as f:
+            f.write("\n".join(lines))
+    except Exception as e:
+        messagebox.showerror("错误", f"写回 {md_path} 失败：{e}")
+        return False
+
+    return True
+
+
+def ensure_cpp_md_comment(cpp_path: str, md_filename: str) -> bool:
+    """在 cpp 顶部添加指向 md 的注释"""
+    comment_line = f"// docs: ./{md_filename}"
+    try:
+        with open(cpp_path, "r", encoding="utf-8") as f:
+            lines = f.read().splitlines()
+    except Exception as e:
+        messagebox.showerror("错误", f"读取 {cpp_path} 失败：{e}")
+        return False
+
+    # 如果已有包含 md 文件名的注释，用新格式替换第一处，避免重复
+    for i, line in enumerate(lines[:5]):
+        if md_filename in line:
+            if comment_line in line:
+                return True
+            lines[i] = comment_line
+            break
+    else:
+        lines.insert(0, comment_line)
+        if len(lines) > 1 and lines[1].strip():
+            lines.insert(1, "")
+
+    try:
+        with open(cpp_path, "w", encoding="utf-8") as f:
+            f.write("\n".join(lines))
+    except Exception as e:
+        messagebox.showerror("错误", f"写回 {cpp_path} 失败：{e}")
+        return False
+
+    return True
+
+
 # ======================
 # 主逻辑（业务）
 # ======================
@@ -316,11 +399,13 @@ def create_cpp_log():
             cpp_rel = os.path.join("cards", f"{safe_name}.cpp").replace("\\", "/")
             md_path = os.path.join(CARDS_DIR, f"{safe_name}.md")
             md_rel = os.path.join("cards", f"{safe_name}.md").replace("\\", "/")
+            cpp_filename = os.path.basename(cpp_path)
+            md_filename = os.path.basename(md_path)
 
             # cpp：不存在才创建
             if not os.path.exists(cpp_path):
                 try:
-                    cpp_content = render_cpp_template(name)
+                    cpp_content = render_cpp_template(name, md_rel_path=md_filename)
                     with open(cpp_path, "w", encoding="utf-8") as f:
                         f.write(cpp_content)
                 except Exception as e:
@@ -356,6 +441,13 @@ def create_cpp_log():
                 if not ok2:
                     return
                 updated_names.append(name)
+
+            ok_link_md = ensure_md_cpp_link(md_path, cpp_filename)
+            if not ok_link_md:
+                return
+            ok_link_cpp = ensure_cpp_md_comment(cpp_path, md_filename)
+            if not ok_link_cpp:
+                return
 
             # 概念卡：总是打开 cpp + md
             open_paths.append(cpp_path)
