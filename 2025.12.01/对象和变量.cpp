@@ -1,6 +1,11 @@
 #include <iostream>
+#include <windows.h>
 
 int main() {
+    // 1) 设置控制台输出/输入代码页为 UTF-8
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+
     std::cout << "Hello from 对象和变量 (2025.12.01)" << std::endl;
 
     // 1,栈上的2个对象，对应2个变量名 x 和 y

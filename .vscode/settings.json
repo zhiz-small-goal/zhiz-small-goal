@@ -1,0 +1,12 @@
+{
+  "terminal.integrated.profiles.windows": {
+    "Cmd-UTF8": {
+      "path": [
+        "${env:windir}\\Sysnative\\cmd.exe",
+        "${env:windir}\\System32\\cmd.exe"
+      ],
+      "icon": "terminal-cmd"
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "Cmd-UTF8"
+}
