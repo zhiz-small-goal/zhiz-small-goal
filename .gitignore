@@ -12,6 +12,7 @@
 *.env
 /build/
 script/build/
+**/test.exe
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
