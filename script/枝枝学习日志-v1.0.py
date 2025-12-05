@@ -59,8 +59,12 @@ def render_cpp_template(name: str, md_rel_path: str | None = None) -> str:
     comment_block = doc_comment + ("\n\n" if doc_comment else "")
     return (
         comment_block
-        + '#include <iostream>\n\n'
+        + '#include <iostream>\n'
+        '#include <windows.h>\n\n'
         "int main() {\n"
+        "    // 1) 设置控制台输出/输入代码页为 UTF-8\n"
+        "    SetConsoleOutputCP(CP_UTF8);\n"
+        "    SetConsoleCP(CP_UTF8);\n\n"
         f'    std::cout << "Hello from {name} ({today})" << std::endl;\n'
         "    return 0;\n"
         "}\n"
