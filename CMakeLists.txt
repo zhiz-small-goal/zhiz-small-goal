@@ -27,7 +27,7 @@ if (MSVC)
 endif()
 
 #add executable
-add_executable(assert_test "DB vs RL/assert-review.cpp")
+# add_executable(assert_test "03DB vs RL/assert-review.cpp")
 add_executable(hello_world "hello.cpp")
-add_executable(test_ "test_c++_standard.cpp")
-add_executable(conts_learn "conts learning/constlearn.cpp")
+# add_executable(test_ "test_c++_standard.cpp")
+add_executable(conts_learn "05conts learning/constlearn.cpp")
