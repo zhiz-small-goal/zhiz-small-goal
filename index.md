@@ -15,7 +15,7 @@
 - [对象定义](archive\2025.12.02/对象定义.cpp) | [笔记](archive\2025.12.02/对象定义.md)
 
 ## 2025.12.05
-- [学习复盘：对象和变量](archive\reviews/2025.12.05_对象和变量_review.md)
+- [学习复盘：对象和变量](reviews/2025.12.05_对象和变量_review.md)
 
 ## 2025.12.08
-- [声明和定义](archive\cards/声明和定义.cpp) | [概念卡](archive\cards/声明和定义.md)
+- [声明和定义](cards/声明和定义.cpp) | [概念卡](cards/声明和定义.md)
