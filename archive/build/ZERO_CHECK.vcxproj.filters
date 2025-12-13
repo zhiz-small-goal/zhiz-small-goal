@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\zhiz-c++\zhiz-small-goal\build\CMakeFiles\2737be526d8ffc0c475c300791f258cb\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{76A59472-2640-3A08-BE63-3B35959ED0E3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

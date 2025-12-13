@@ -1,0 +1,4 @@
+D:/zhiz-c++/zhiz-small-goal/build/CMakeFiles/hello_world.dir
+D:/zhiz-c++/zhiz-small-goal/build/CMakeFiles/conts_learn.dir
+D:/zhiz-c++/zhiz-small-goal/build/CMakeFiles/ALL_BUILD.dir
+D:/zhiz-c++/zhiz-small-goal/build/CMakeFiles/ZERO_CHECK.dir
