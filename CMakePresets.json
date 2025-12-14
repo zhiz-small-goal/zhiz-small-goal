@@ -1,0 +1,25 @@
+{
+    "version": 5,
+    "configurePresets": [
+        {
+            "name": "vs2022",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "cacheVariables": {
+                "ZHIZ_WARN_AS_ERROR": "OFF"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "vs2022_debug",
+            "configurePreset": "vs2022",
+            "configuration": "Debug"
+        },
+        {
+            "name": "vs2022_release",
+            "configurePreset": "vs2022",
+            "configuration": "Release"
+        }
+    ]
+}

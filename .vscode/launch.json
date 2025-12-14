@@ -2,25 +2,16 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "compile and run current C++ file",
+      "name": "zhiz_cmake_launch",
       "type": "cppvsdbg",
       "request": "launch",
-      "program": "${fileDirname}/test.exe",
+      "program": "${command:cmake.launchTargetPath}", // 执行哪个文件
       "args": [],
       "stopAtEntry": false,
-      "cwd": "${workspaceFolder}",
+      "cwd": "${command:cmake.launchTargetDirectory}", // 相对路径解析从哪里开始
       "environment": [],
       "console": "integratedTerminal",
-      // "MIMode": "gdb",
-      // "miDebuggerPath": "C:/msys64/mingw64/bin/gdb.exe",   // ✅ 指定绝对路径
-      // "setupCommands": [
-      //   {
-      //     "description": "Enable pretty-printing for gdb",
-      //     "text": "-enable-pretty-printing",
-      //     "ignoreFailures": true
-      //   }
-      // ],
-      "preLaunchTask": "compile current C++ file"
+      // "preLaunchTask": "compile current C++ file"
     }
   ]
 }
