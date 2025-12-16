@@ -11,7 +11,7 @@
       "cwd": "${command:cmake.launchTargetDirectory}", // 相对路径解析从哪里开始
       "environment": [],
       "console": "integratedTerminal",
-      // "preLaunchTask": "compile current C++ file"
+      // "preLaunchTask": "#{taskslabel}"
     }
   ]
 }

@@ -8,5 +8,6 @@
       "icon": "terminal-cmd"
     }
   },
-  "terminal.integrated.defaultProfile.windows": "Cmd-UTF8"
+  "terminal.integrated.defaultProfile.windows": "Cmd-UTF8",
+  "cmake.buildBeforeRun": true
 }
