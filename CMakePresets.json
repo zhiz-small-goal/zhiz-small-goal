@@ -13,8 +13,8 @@
     "buildPresets": [
         {
             "name": "vs2022_debug",
-            "configurePreset": "vs2022",
-            "configuration": "Debug"
+            "configuration": "Debug",
+            "configurePreset": "vs2022"
         },
         {
             "name": "vs2022_release",
