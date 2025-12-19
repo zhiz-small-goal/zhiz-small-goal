@@ -2,7 +2,14 @@
 #include <filesystem>
 #include <nlohmann/json.hpp>
 
+#include "core/zhiz_log/logger.h"
+
+
+
 int main() {
+    zhiz::log::init("zhiz_logs");
+    zhiz::log::info("app start");
+
     std::cout << "day01 ok" << std::endl;
     std::cout << std::filesystem::current_path() << std::endl;
     std::cout << "枝枝宝最可爱" << std::endl;
