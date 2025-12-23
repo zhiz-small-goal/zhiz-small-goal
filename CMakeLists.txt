@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(zhiz-small-goal LANGUAGES CXX)
+project(zhiz-small-goal LANGUAGES CXX VERSION 0.1.0)
 
 # -------------抓取第三方依赖-------------
 include(FetchContent)
@@ -22,7 +22,7 @@ install(TARGETS zhiz_tool RUNTIME DESTINATION bin)    # 声明安装目标程序
 install(FILES README.md LICENSE THIRD_PARTY_NOTICES.md DESTINATION .)     # 把文档、许可、notice也作为交付物安装到<prefix>/（包根目录）
 
 #如果有配置、资源目录，用这个:整个目录拷贝进包
-# install(DIRECTORY config/ BESTINATION config)
+# install(DIRECTORY config/ DESTINATION config)
 
 
 # ------------CPack：从 install 树打包 ------------
@@ -48,9 +48,6 @@ target_include_directories(core_zhiz_log PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 
 target_link_libraries(zhiz_tool PRIVATE core_zhiz_log nlohmann_json::nlohmann_json)
-
-
-target_link_libraries(zhiz_tool PRIVATE nlohmann_json::nlohmann_json)
 
 
 # -------------设置自定义选项：warn是否是为错误-----------------
